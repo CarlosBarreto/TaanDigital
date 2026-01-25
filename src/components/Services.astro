@@ -1,77 +1,70 @@
 ---
 // src/components/Services.astro
-import '../styles/services.css';
+import "../styles/services.css";
 
-interface Service {
+interface Capability {
   icon: string;
   title: string;
   description: string;
   link: string;
 }
 
-const services: Service[] = [
+const capabilities: Capability[] = [
   {
-    icon: "analytics",
-    title: "Marketing Digital",
-    description: "Estrategias personalizadas para aumentar tu presencia online y alcanzar a tu audiencia ideal.",
-    link: "/servicios/marketing-digital"
+    icon: "query_stats",
+    title: "Diagnóstico Inteligente",
+    description:
+      "Analizamos tu negocio como un sistema completo. Identificamos fricciones, cuellos de botella y oportunidades mediante evaluación estratégica y análisis asistido por IA.",
+    link: "#diagnostico",
   },
   {
-    icon: "code",
-    title: "Desarrollo Web",
-    description: "Sitios web modernos, rápidos y optimizados para buscadores que convierten visitantes en clientes.",
-    link: "/servicios/desarrollo-web"
+    icon: "architecture",
+    title: "Arquitectura de Soluciones",
+    description:
+      "Diseñamos procesos, sistemas y flujos tecnológicos que conectan estrategia, operación y datos. Nada se automatiza sin antes tener sentido.",
+    link: "#arquitectura",
   },
   {
-    icon: "auto_awesome",
-    title: "Branding Digital",
-    description: "Creación y gestión de marca que conecta emocionalmente con tu audiencia en el mundo digital.",
-    link: "/servicios/branding"
+    icon: "smart_toy",
+    title: "Operación Asistida por IA",
+    description:
+      "Implementamos sistemas que monitorean, aprenden y apoyan la toma de decisiones. La IA se integra como copiloto, no como reemplazo.",
+    link: "#operacion",
   },
-  {
-    icon: "campaign",
-    title: "Social Media",
-    description: "Gestión profesional de redes sociales para construir una comunidad comprometida con tu marca.",
-    link: "/servicios/social-media"
-  },
-  {
-    icon: "trending_up",
-    title: "SEO",
-    description: "Optimización para buscadores que mejora tu visibilidad y atrae tráfico orgánico cualificado.",
-    link: "/servicios/seo"
-  },
-  {
-    icon: "psychology",
-    title: "Marketing de Contenidos",
-    description: "Contenido estratégico que educa, entretiene y convierte a tu audiencia en clientes leales.",
-    link: "/servicios/contenidos"
-  }
 ];
 ---
 
-<section class="services" id="servicios">
+<section class="services" id="que-hacemos">
   <div class="services__container">
     <header class="services__header">
-      <h2 class="services__title">Nuestros Servicios</h2>
+      <h2 class="services__title">Qué hacemos</h2>
       <p class="services__subtitle">
-        Soluciones digitales integrales diseñadas para impulsar tu crecimiento y maximizar tu impacto online.
+        Diseñamos y operamos sistemas inteligentes para que los negocios crezcan
+        con orden, claridad y decisiones informadas.
       </p>
     </header>
 
     <div class="services__grid">
-      {services.map(service => (
-        <article class="service-card">
-          <span class="material-icons service-card__icon">
-            {service.icon}
-          </span>
-          <h3 class="service-card__title">{service.title}</h3>
-          <p class="service-card__description">{service.description}</p>
-          <a href={service.link} class="service-card__link">
-            Conoce más
-            <span class="material-icons service-card__link-icon">arrow_forward</span>
-          </a>
-        </article>
-      ))}
+      {
+        capabilities.map((capability) => (
+          <article class="service-card">
+            <span class="material-icons service-card__icon">
+              {capability.icon}
+            </span>
+
+            <h3 class="service-card__title">{capability.title}</h3>
+
+            <p class="service-card__description">{capability.description}</p>
+
+            <a href={capability.link} class="service-card__link">
+              Ver cómo funciona
+              <span class="material-icons service-card__link-icon">
+                arrow_forward
+              </span>
+            </a>
+          </article>
+        ))
+      }
     </div>
   </div>
 </section>

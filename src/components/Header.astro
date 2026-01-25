@@ -1,33 +1,38 @@
 ---
 // src/components/Header.astro
-import '../styles/header.css';
-import Logo from './Logo.astro';
+import "../styles/header.css";
+import Logo from "./Logo.astro";
 
 const navItems = [
-  "Marketing Digital", "Consultoría", "Diseño Web", "Social Media", 
-  "Content", "SEO", "SEM", "AI", "eCommerce"
+  "Home",
+  "Qué hacemos",
+  "IA en Taan",
+  "Cómo trabajamos",
+  "Manifiesto",
+  "Conocimiento",
+  "Iniciar diagnóstico",
+  "Contáctanos",
 ];
 
-const secondaryLinks = [
-  "Bolsa de trabajo", "Tienda", "Acerca de Estar Aquí", "Blog", "English"
-];
+//const secondaryLinks = [
+// "Bolsa de trabajo", "Tienda", "Acerca de Estar Aquí", "Blog", "English"
+//];
 ---
 
 <header class="header">
   <div class="container header__container">
     <Logo className="header__logo" />
-    
+
     <nav class="header__nav">
       <ul class="header__nav-list">
-        <li><a href="#" class="header__nav-link">Marketing Digital</a></li>
-        <li><a href="#" class="header__nav-link">Consultoría</a></li>
-        <li><a href="#" class="header__nav-link">Diseño Web</a></li>
-        <li><a href="#" class="header__nav-link">Social Media</a></li>
-        <li><a href="#" class="header__nav-link">Content</a></li>
-        <li><a href="#" class="header__nav-link">SEO</a></li>
-        <li><a href="#" class="header__nav-link">SEM</a></li>
-        <li><a href="#" class="header__nav-link">AI</a></li>
-        <li><a href="#" class="header__nav-link">eCommerce</a></li>
+        <li><a href="#" class="header__nav-link">Home</a></li>
+        <li><a href="#" class="header__nav-link">Qué hacemos</a></li>
+        <li><a href="#" class="header__nav-link">IA en Taan</a></li>
+        <li><a href="#" class="header__nav-link">Cómo trabajamos</a></li>
+        <li><a href="#" class="header__nav-link">Manifiesto</a></li>
+        <li><a href="#" class="header__nav-link">Conocimiento</a></li>
+        <li><a href="#" class="header__nav-link">Iniciar diagnóstico</a></li>
+        <!-- <li><a href="#" class="header__nav-link">eCommerce</a></li> -->
         <li><a href="#" class="header__nav-button">Contáctanos</a></li>
       </ul>
     </nav>
@@ -37,6 +42,7 @@ const secondaryLinks = [
     </button>
   </div>
 
+  <!--
   <div class="header__secondary">
     <a href="#" class="header__secondary-link">Bolsa de trabajo</a>
     <a href="#" class="header__secondary-link">Tienda</a>
@@ -44,4 +50,5 @@ const secondaryLinks = [
     <a href="#" class="header__secondary-link">Blog</a>
     <a href="#" class="header__secondary-link">English</a>
   </div>
+  -->
 </header>

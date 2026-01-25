@@ -1,6 +1,6 @@
 ---
 // src/components/Hero.astro
-import '../styles/hero.css';
+import "../styles/hero.css";
 
 interface HeroContent {
   title: string;
@@ -16,29 +16,30 @@ interface HeroContent {
 }
 
 const content: HeroContent = {
-  title: "Transformamos Ideas en Éxito Digital",
-  description: "Estar Aquí® es una agencia de marketing digital en México. Desde CDMX trabajamos con marcas y empresas en todo el mundo, creando estrategias digitales que generan resultados reales.",
+  title: "Diseñamos negocios que piensan, aprenden y evolucionan",
+  description:
+    "Taan Digital es un AI-Native Consultant. Diseñamos sistemas inteligentes que integran estrategia, operación y tecnología para ayudar a las empresas a crecer con orden, claridad y decisiones informadas.",
   primaryButton: {
-    text: "Comienza Ahora",
-    url: "#servicios"
+    text: "Iniciar diagnóstico",
+    url: "#diagnostico",
   },
   secondaryButton: {
-    text: "Conoce Más",
-    url: "#nosotros"
-  }
+    text: "Leer el manifiesto",
+    url: "#manifiesto",
+  },
 };
 
 // Verificar si existe la imagen de fondo
 let hasBackgroundImage = false;
 try {
-  const imageUrl = new URL('/images/hero-bg.jpg', import.meta.url);
+  const imageUrl = new URL("/images/hero-bg.jpg", import.meta.url);
   hasBackgroundImage = true;
 } catch (e) {
-  console.warn('Hero background image not found');
+  console.warn("Hero background image not found");
 }
 ---
 
-<section class={`hero ${hasBackgroundImage ? 'has-bg' : ''}`} id="inicio">
+<section class={`hero ${hasBackgroundImage ? "has-bg" : ""}`} id="inicio">
   <div class="hero__content">
     <h1 class="hero__title">
       {content.title}
@@ -47,21 +48,21 @@ try {
       {content.description}
     </p>
     <div class="hero__buttons">
-      <a 
-        href={content.primaryButton.url} 
+      <a
+        href={content.primaryButton.url}
         class="hero__button hero__button--primary"
       >
         <span>{content.primaryButton.text}</span>
       </a>
-      <a 
-        href={content.secondaryButton.url} 
+      <a
+        href={content.secondaryButton.url}
         class="hero__button hero__button--secondary"
       >
         {content.secondaryButton.text}
       </a>
     </div>
   </div>
-  
+
   <a href="#servicios" class="hero__scroll-indicator">
     <span class="material-icons">expand_more</span>
   </a>
@@ -70,36 +71,39 @@ try {
 <script>
   // Smooth scroll para los enlaces del hero
   document.querySelectorAll('a[href^="#"]').forEach((anchor: Element) => {
-    anchor.addEventListener('click', function(this: HTMLAnchorElement, e: Event) {
-      e.preventDefault();
-      const href = this.getAttribute('href');
-      if (href) {
-        const target = document.querySelector(href);
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
+    anchor.addEventListener(
+      "click",
+      function (this: HTMLAnchorElement, e: Event) {
+        e.preventDefault();
+        const href = this.getAttribute("href");
+        if (href) {
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
         }
-      }
-    });
+      },
+    );
   });
 
   // Efecto parallax en el fondo
-  const hero = document.querySelector('.hero');
+  const hero = document.querySelector(".hero");
   if (hero instanceof HTMLElement) {
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const rate = scrolled * 0.5;
-      hero.style.backgroundPositionY = `${rate}px`;
+    window.addEventListener("scroll", () => {
+      const scrolled = window.scrollY;
+      hero.style.backgroundPositionY = `${scrolled * 0.4}px`;
     });
   }
 </script>
 
 <style>
-	.bg-hero {
-	  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-				  url("/images/hero-bg.jpg") no-repeat center center;
-	  background-size: cover;
-	}
+  .hero.has-bg {
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+      url("/images/hero-bg.jpg") no-repeat center center;
+    background-size: cover;
+  }
 </style>
