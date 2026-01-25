@@ -1,0 +1,79 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "../styles/diagnostico.css";
+---
+
+<Layout title="Diagnóstico | Taan Digital">
+    <section class="diagnostico">
+        <div class="diagnostico__container">
+            <header class="diagnostico__header">
+                <h1 class="diagnostico__title">
+                    Inicia el diagnóstico de tu negocio
+                </h1>
+
+                <p class="diagnostico__subtitle">
+                    Antes de proponer soluciones, entendemos tu sistema.
+                </p>
+
+                <p class="diagnostico__description">
+                    Este diagnóstico nos permite comprender cómo opera tu
+                    negocio hoy, identificar fricciones y detectar oportunidades
+                    reales de mejora.
+                    <br /><br />
+                    No es una venta. Es el primer paso para ganar claridad.
+                </p>
+            </header>
+
+            <form
+                class="diagnostico__form"
+                method="POST"
+                action="/api/diagnostico"
+                enctype="application/x-www-form-urlencoded"
+            >
+                <div class="form__group">
+                    <label for="nombre">Nombre</label>
+                    <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        required
+                        placeholder="Tu nombre"
+                    />
+                </div>
+
+                <div class="form__group">
+                    <label for="email">Correo</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        required
+                        placeholder="tu@correo.com"
+                    />
+                </div>
+
+                <div class="form__group">
+                    <label for="negocio">Nombre del negocio</label>
+                    <input
+                        type="text"
+                        id="negocio"
+                        name="negocio"
+                        required
+                        placeholder="Nombre de tu empresa o proyecto"
+                    />
+                </div>
+
+                <button type="submit" class="diagnostico__submit">
+                    Continuar con el diagnóstico
+                </button>
+            </form>
+
+            <footer class="diagnostico__footer">
+                <p>
+                    En el siguiente paso, un agente de IA te hará algunas
+                    preguntas para comprender mejor tu operación.
+                </p>
+            </footer>
+        </div>
+    </section>
+</Layout>

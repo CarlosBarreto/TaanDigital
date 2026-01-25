@@ -1,0 +1,82 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/decoder-chat.css";
+
+const { sid } = Astro.url.searchParams;
+---
+
+<Layout title="DECODER | Diagnóstico">
+    <section class="decoder">
+        <header class="decoder__header">
+            <h1 class="decoder__title">DECODER</h1>
+            <p class="decoder__subtitle">
+                Entrevista diagnóstica · Sesión {sid}
+            </p>
+        </header>
+
+        <div id="chat" class="decoder__chat">
+            <!-- Mensaje inicial del sistema -->
+            <div class="message message--system">
+                <p>
+                    Hola. Soy <strong>DECODER</strong>.<br />
+                    Mi función es entender cómo opera tu negocio hoy.
+                </p>
+            </div>
+
+            <div class="message message--system">
+                <p>
+                    Empezaremos con algunas preguntas simples. Responde con la
+                    mayor claridad posible.
+                </p>
+            </div>
+        </div>
+
+        <form id="chatForm" class="decoder__input">
+            <input
+                id="userInput"
+                type="text"
+                placeholder="Escribe tu respuesta aquí…"
+                autocomplete="off"
+                required
+            />
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+</Layout>
+
+<script lang="ts">
+    const chat = document.getElementById("chat") as HTMLDivElement;
+    const form = document.getElementById("chatForm") as HTMLFormElement;
+    const input = document.getElementById("userInput") as HTMLInputElement;
+
+    // Simulación inicial (luego vendrá del API)
+    const initialQuestion = "Para empezar, ¿a qué se dedica tu negocio?";
+
+    function addMessage(text: string, type: "user" | "system") {
+        const message = document.createElement("div");
+        message.className = `message message--${type}`;
+        message.innerHTML = `<p>${text}</p>`;
+        chat.appendChild(message);
+        chat.scrollTop = chat.scrollHeight;
+    }
+
+    // Lanzar primera pregunta
+    setTimeout(() => {
+        addMessage(initialQuestion, "system");
+    }, 800);
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const value = input.value.trim();
+        if (!value) return;
+
+        addMessage(value, "user");
+        input.value = "";
+
+        // Placeholder de respuesta (simula procesamiento)
+        setTimeout(() => {
+            addMessage("Entendido. Continuemos.", "system");
+        }, 700);
+    });
+</script>

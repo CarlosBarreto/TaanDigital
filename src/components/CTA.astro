@@ -1,34 +1,33 @@
 ---
 // src/components/CTA.astro
+import "../styles/cta.css";
 
-
-import '../styles/cta.css';
-
-interface Feature {
+interface DiagnosticFeature {
   icon: string;
   title: string;
   text: string;
 }
 
-const features: Feature[] = [
+const features: DiagnosticFeature[] = [
   {
-    icon: "rocket_launch",
-    title: "Lanzamiento Rápido",
-    text: "Implementación ágil y resultados inmediatos"
+    icon: "query_stats",
+    title: "Evaluación Sistémica",
+    text: "Analizamos tu negocio como un sistema completo, no como áreas aisladas.",
   },
   {
-    icon: "psychology_alt",
-    title: "Estrategia Personalizada",
-    text: "Soluciones adaptadas a tus objetivos"
+    icon: "account_tree",
+    title: "Mapa de Fricciones",
+    text: "Identificamos cuellos de botella, duplicidades y puntos de mejora reales.",
   },
   {
-    icon: "monitoring",
-    title: "Análisis en Tiempo Real",
-    text: "Métricas y ajustes continuos"
-  }
+    icon: "insights",
+    title: "Ruta Clara de Acción",
+    text: "Obtienes un diagnóstico comprensible y un roadmap priorizado.",
+  },
 ];
 ---
-<section class="cta" id="contacto">
+
+<section class="cta" id="diagnostico">
   <div class="cta__background">
     <div class="cta__circle"></div>
     <div class="cta__circle"></div>
@@ -36,70 +35,76 @@ const features: Feature[] = [
   </div>
 
   <div class="cta__container">
-    <h2 class="cta__title">
-      ¿Listo para Transformar tu Presencia Digital?
-    </h2>
+    <h2 class="cta__title">Diagnóstico Inteligente de tu Negocio</h2>
+
     <p class="cta__description">
-      Únete a las empresas que ya están destacando en el mundo digital. 
-      Nuestro equipo está listo para impulsar tu proyecto al siguiente nivel.
+      Antes de proponer soluciones, entendemos tu sistema. Este diagnóstico es
+      el primer paso para diseñar procesos, tecnología y decisiones que
+      realmente funcionen.
     </p>
 
     <div class="cta__buttons">
-      <a href="/contacto" class="cta__button cta__button--primary">
-        <span>Comienza tu Proyecto</span>
+      <a href="/diagnostico" class="cta__button cta__button--primary">
+        <span>Iniciar diagnóstico</span>
       </a>
-      <a href="/casos" class="cta__button cta__button--secondary">
-        Ver Casos de Éxito
+
+      <a href="#como-trabajamos" class="cta__button cta__button--secondary">
+        Cómo funciona
       </a>
     </div>
 
     <div class="cta__features">
-      {features.map((feature: Feature) => (
-        <div class="cta__feature">
-          <span class="material-icons cta__feature-icon">
-            {feature.icon}
-          </span>
-          <h3 class="cta__feature-title">{feature.title}</h3>
-          <p class="cta__feature-text">{feature.text}</p>
-        </div>
-      ))}
+      {
+        features.map((feature) => (
+          <div class="cta__feature">
+            <span class="material-icons cta__feature-icon">{feature.icon}</span>
+
+            <h3 class="cta__feature-title">{feature.title}</h3>
+
+            <p class="cta__feature-text">{feature.text}</p>
+          </div>
+        ))
+      }
     </div>
   </div>
 </section>
 
 <script>
-  // Efecto parallax para los círculos de fondo
-  document.addEventListener('mousemove', (e: MouseEvent) => {
-    const circles = document.querySelectorAll<HTMLElement>('.cta__circle');
+  // Parallax suave para fondo (mantener estética sin distraer)
+  document.addEventListener("mousemove", (e) => {
+    const circles = document.querySelectorAll(".cta__circle");
     const mouseX = e.clientX / window.innerWidth;
     const mouseY = e.clientY / window.innerHeight;
 
-    circles.forEach((circle: HTMLElement, index: number) => {
-      const speed = (index + 1) * 20;
+    circles.forEach((circle, index) => {
+      const speed = (index + 1) * 18;
       const x = (mouseX - 0.5) * speed;
       const y = (mouseY - 0.5) * speed;
-      
-      if (circle.style) {
+
+      if (circle instanceof HTMLElement) {
         circle.style.transform = `translate(${x}px, ${y}px)`;
       }
     });
   });
 
-  // Efecto de revelación al hacer scroll
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && entry.target instanceof HTMLElement) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 });
+  // Reveal on scroll (features)
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && entry.target instanceof HTMLElement) {
+          entry.target.style.opacity = "1";
+          entry.target.style.transform = "translateY(0)";
+        }
+      });
+    },
+    { threshold: 0.1 },
+  );
 
-  document.querySelectorAll<HTMLElement>('.cta__feature').forEach(feature => {
-    if (feature.style) {
-      feature.style.opacity = '0';
-      feature.style.transform = 'translateY(20px)';
-      feature.style.transition = 'all 0.6s ease-out';
+  document.querySelectorAll(".cta__feature").forEach((feature) => {
+    if (feature instanceof HTMLElement) {
+      feature.style.opacity = "0";
+      feature.style.transform = "translateY(20px)";
+      feature.style.transition = "all 0.6s ease-out";
       observer.observe(feature);
     }
   });

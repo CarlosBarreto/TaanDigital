@@ -1,0 +1,222 @@
+/* =========================
+   Diagnóstico – Estilo AI-Native
+   Basado en CTA
+   ========================= */
+
+.diagnostico {
+    position: relative;
+    min-height: 100vh;
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    overflow: hidden;
+}
+
+/* =========================
+   Fondo decorativo (igual que CTA)
+   ========================= */
+
+.diagnostico__background {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.diagnostico__circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.08;
+    animation: float 22s infinite ease-in-out;
+}
+
+.diagnostico__circle:nth-child(1) {
+    width: 320px;
+    height: 320px;
+    top: -160px;
+    left: -160px;
+    background: var(--color-sky-blue-light);
+}
+
+.diagnostico__circle:nth-child(2) {
+    width: 220px;
+    height: 220px;
+    bottom: -110px;
+    right: -110px;
+    background: var(--color-mint-green-soft);
+    animation-delay: -6s;
+}
+
+.diagnostico__circle:nth-child(3) {
+    width: 160px;
+    height: 160px;
+    top: 55%;
+    right: 12%;
+    background: var(--color-coral-vibrant);
+    animation-delay: -12s;
+}
+
+/* Reutilizamos la animación */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(40px, 40px) rotate(90deg);
+    }
+
+    50% {
+        transform: translate(0, 80px) rotate(180deg);
+    }
+
+    75% {
+        transform: translate(-40px, 40px) rotate(270deg);
+    }
+}
+
+/* =========================
+   Contenedor principal
+   ========================= */
+
+.diagnostico__container {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    text-align: center;
+    color: var(--color-pure-white);
+}
+
+/* =========================
+   Header
+   ========================= */
+
+.diagnostico__title {
+    font-family: var(--font-primary);
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: var(--font-weight-bold);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg,
+            var(--color-sky-blue-light),
+            var(--color-mint-green-soft));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.diagnostico__subtitle {
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-light);
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.diagnostico__description {
+    max-width: 620px;
+    margin: 0 auto 3rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    opacity: 0.85;
+}
+
+/* =========================
+   Formulario (núcleo)
+   ========================= */
+
+.diagnostico__form {
+    margin: 0 auto;
+    padding: 2.5rem;
+    max-width: 520px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    text-align: left;
+}
+
+.form__group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+.form__group label {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+}
+
+.form__group input {
+    padding: 0.9rem 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(0, 0, 0, 0.35);
+    color: var(--color-pure-white);
+    font-size: 1rem;
+    transition: all 0.25s ease;
+}
+
+.form__group input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.form__group input:focus {
+    outline: none;
+    border-color: var(--color-sky-blue-light);
+    box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.25);
+}
+
+/* =========================
+   Botón principal
+   ========================= */
+
+.diagnostico__submit {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    font-weight: var(--font-weight-medium);
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    color: var(--color-pure-white);
+    background: linear-gradient(135deg,
+            var(--color-sky-blue-light),
+            var(--color-mint-green-soft));
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.diagnostico__submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 50px rgba(135, 206, 235, 0.35);
+}
+
+/* =========================
+   Footer / Nota
+   ========================= */
+
+.diagnostico__footer {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.diagnostico__footer p {
+    font-size: 0.9rem;
+    opacity: 0.75;
+}
+
+/* =========================
+   Responsive
+   ========================= */
+
+@media (max-width: 768px) {
+    .diagnostico {
+        padding: 5rem 0;
+    }
+
+    .diagnostico__form {
+        padding: 2rem 1.5rem;
+    }
+}

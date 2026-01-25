@@ -1,0 +1,58 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/diagnostico.css";
+---
+
+<Layout title="Diagnóstico | DECODER">
+    <section class="diagnostico">
+        <!-- Fondo decorativo -->
+        <div class="diagnostico__background">
+            <div class="diagnostico__circle"></div>
+            <div class="diagnostico__circle"></div>
+            <div class="diagnostico__circle"></div>
+        </div>
+
+        <div class="diagnostico__container">
+            <header class="diagnostico__header">
+                <h1 class="diagnostico__title">
+                    Perfecto. Ahora entendamos tu sistema.
+                </h1>
+
+                <p class="diagnostico__subtitle">
+                    El siguiente paso es una conversación guiada.
+                </p>
+
+                <p class="diagnostico__description">
+                    <strong>DECODER</strong> es un agente de inteligencia artificial
+                    diseñado para comprender cómo opera tu negocio hoy: procesos,
+                    decisiones y fricciones.
+                    <br /><br />
+                    No es un cuestionario automático. Es una entrevista estructurada
+                    para obtener claridad real.
+                </p>
+            </header>
+
+            <div class="diagnostico__form">
+                <p style="margin-bottom: 1.5rem; opacity: 0.85;">
+                    ⏱ Duración aproximada: <strong>10–15 minutos</strong><br />
+                    📌 Responde con honestidad. No hay respuestas correctas.
+                </p>
+
+                <a
+                    href="/diagnostico/conversacion"
+                    class="diagnostico__submit"
+                    style="text-align: center; display: inline-block;"
+                >
+                    Iniciar conversación con DECODER
+                </a>
+            </div>
+
+            <footer class="diagnostico__footer">
+                <p>
+                    Al finalizar, recibirás un resumen inicial y los siguientes
+                    pasos.
+                </p>
+            </footer>
+        </div>
+    </section>
+</Layout>
