@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import "../../styles/decoder-chat.css";
 
-const { sid } = Astro.url.searchParams;
+const sid = Astro.url.searchParams.get("sid");
 ---
 
 <Layout title="DECODER | Diagnóstico">
@@ -16,6 +16,7 @@ const { sid } = Astro.url.searchParams;
 
         <div id="chat" class="decoder__chat">
             <!-- Mensaje inicial del sistema -->
+            <!--
             <div class="message message--system">
                 <p>
                     Hola. Soy <strong>DECODER</strong>.<br />
@@ -29,54 +30,150 @@ const { sid } = Astro.url.searchParams;
                     mayor claridad posible.
                 </p>
             </div>
+             -->
         </div>
 
-        <form id="chatForm" class="decoder__input">
+        <div class="decoder__input">
             <input
                 id="userInput"
                 type="text"
                 placeholder="Escribe tu respuesta aquí…"
                 autocomplete="off"
-                required
             />
-            <button type="submit">Enviar</button>
-        </form>
+            <button type="button" id="sendBtn">Enviar</button>
+        </div>
     </section>
 </Layout>
 
-<script lang="ts">
-    const chat = document.getElementById("chat") as HTMLDivElement;
-    const form = document.getElementById("chatForm") as HTMLFormElement;
-    const input = document.getElementById("userInput") as HTMLInputElement;
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const chat = document.getElementById("chat");
+        const input = document.getElementById("userInput");
+        const button = document.getElementById("sendBtn");
 
-    // Simulación inicial (luego vendrá del API)
-    const initialQuestion = "Para empezar, ¿a qué se dedica tu negocio?";
+        const DECODER_API_URL = import.meta.env.PUBLIC_DECODER_API_URL;
+        const sessionId = new URLSearchParams(window.location.search).get(
+            "sid",
+        );
 
-    function addMessage(text: string, type: "user" | "system") {
-        const message = document.createElement("div");
-        message.className = `message message--${type}`;
-        message.innerHTML = `<p>${text}</p>`;
-        chat.appendChild(message);
-        chat.scrollTop = chat.scrollHeight;
-    }
+        function addMessage(text, type) {
+            const msg = document.createElement("div");
+            msg.className = `message message--${type}`;
+            msg.innerHTML = `<p>${text}</p>`;
+            chat.appendChild(msg);
+            chat.scrollTop = chat.scrollHeight;
+        }
 
-    // Lanzar primera pregunta
-    setTimeout(() => {
-        addMessage(initialQuestion, "system");
-    }, 800);
+        function cerrarDiagnostico(data) {
+            addMessage(
+                "Gracias. Con la información recopilada ya tenemos claridad suficiente para elaborar tu diagnóstico inicial.",
+                "system",
+            );
 
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
+            addMessage(
+                "En breve recibirás un resumen y los siguientes pasos. Nuestro equipo te contactará para profundizar en la solución.",
+                "system",
+            );
 
-        const value = input.value.trim();
-        if (!value) return;
+            input.disabled = true;
+            input.placeholder = "Diagnóstico completado";
+            button.disabled = true;
 
-        addMessage(value, "user");
-        input.value = "";
+            window.__DECODER_RESULT__ = data;
+        }
 
-        // Placeholder de respuesta (simula procesamiento)
-        setTimeout(() => {
-            addMessage("Entendido. Continuemos.", "system");
-        }, 700);
+        async function enviarAModelo(mensaje) {
+            const response = await fetch(DECODER_API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    session_id: sessionId,
+                    message: mensaje,
+                }),
+            });
+
+            return await response.json();
+        }
+
+        // 🧠 Validación de sesión
+        if (!sessionId) {
+            addMessage(
+                "La sesión no está activa. Por favor inicia el diagnóstico nuevamente.",
+                "system",
+            );
+            input.disabled = true;
+            button.disabled = true;
+            return;
+        }
+
+        // 🚀 1. DECODER HABLA PRIMERO
+        (async () => {
+            addMessage("Iniciando diagnóstico…", "system");
+
+            try {
+                const data = await enviarAModelo("__INIT__");
+
+                const reply =
+                    data.mensaje_usuario ||
+                    data.reply ||
+                    "DECODER no devolvió mensaje";
+
+                addMessage(reply, "system");
+
+                if (data?.perfil_actualizado?.contexto_suficiente === true) {
+                    cerrarDiagnostico(data);
+                }
+            } catch (err) {
+                addMessage(
+                    "No fue posible iniciar el diagnóstico. Intenta nuevamente.",
+                    "system",
+                );
+            }
+        })();
+
+        // ⌨️ Enviar con Enter
+        input.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                button.click();
+            }
+        });
+
+        // 🧑‍💻 2. MENSAJES DEL USUARIO
+        button.addEventListener("click", async () => {
+            const value = input.value.trim();
+            if (!value) return;
+
+            addMessage(value, "user");
+            input.value = "";
+            button.disabled = true;
+
+            const thinking = document.createElement("div");
+            thinking.className = "message message--system";
+            thinking.innerHTML = "<p>Analizando…</p>";
+            chat.appendChild(thinking);
+
+            try {
+                const data = await enviarAModelo(value);
+                thinking.remove();
+                console.log("DATA", data);
+
+                const reply =
+                    data.mensaje_usuario ||
+                    data.reply ||
+                    "DECODER no devolvió mensaje";
+
+                addMessage(reply, "system");
+
+                if (data?.perfil_actualizado?.contexto_suficiente === true) {
+                    cerrarDiagnostico(data);
+                }
+            } catch (err) {
+                thinking.remove();
+                addMessage("Error al conectar con DECODER", "system");
+            } finally {
+                button.disabled = false;
+            }
+        });
     });
 </script>

@@ -1,6 +1,8 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import "../../styles/diagnostico.css";
+
+const sid = Astro.url.searchParams.get("sid");
 ---
 
 <Layout title="Diagnóstico | DECODER">
@@ -38,12 +40,16 @@ import "../../styles/diagnostico.css";
                     📌 Responde con honestidad. No hay respuestas correctas.
                 </p>
 
+                <p style="font-size:12px;opacity:.6">
+                    DEBUG SID: {sid}
+                </p>
+
                 <a
-                    href="/diagnostico/conversacion"
+                    href={`/diagnostico/conversacion?sid=${sid}`}
                     class="diagnostico__submit"
                     style="text-align: center; display: inline-block;"
                 >
-                    Iniciar conversación con DECODER
+                    Iniciar Diagnóstico
                 </a>
             </div>
 
